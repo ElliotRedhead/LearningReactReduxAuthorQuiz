@@ -11,7 +11,7 @@ const Hero = () => (
   </div>
 );
 
-const Turn = (author, books) => (
+const Turn = ({author, books}) => (
   <div className="row turn" style={{backgroundColor:"white"}}>
     <div className="col-4 offset-1">
       <img src={author.imageURL} className="authorImage" alt="Author"/>
@@ -19,7 +19,6 @@ const Turn = (author, books) => (
     <div className="col-6">
       {books.map((title) => <p>{title}</p>)}
     </div>
-
   </div>
 );
 
@@ -35,10 +34,10 @@ const Footer = () => (
   </div>
 );
 
-const AuthorQuiz = () => (
+const AuthorQuiz = ({turnData}) => (
   <div className="container-fluid">
     <Hero />
-    <Turn />
+    <Turn {...turnData} />
     <Continue />
     <Footer />
   </div>
