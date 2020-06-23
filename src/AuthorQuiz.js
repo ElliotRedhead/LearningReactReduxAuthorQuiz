@@ -21,7 +21,7 @@ const Book = ({title}) => (
 const Turn = ({author, books}) => (
   <div className="row turn" style={{backgroundColor:"white"}}>
     <div className="col-4 offset-1">
-      <img src={author.imageURL} className="authorImage" alt="Author"/>
+      <img src={author.imageUrl} className="authorImage" alt="Author"/>
     </div>
     <div className="col-6">
       {books.map((title) => <Book title={title} key={title}/>)}
