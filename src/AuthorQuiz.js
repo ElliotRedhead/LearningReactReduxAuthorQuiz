@@ -18,16 +18,26 @@ const Book = ({title}) => (
 
 );
 
-const Turn = ({author, books}) => (
-  <div className="row turn" style={{backgroundColor:"white"}}>
-    <div className="col-4 offset-1">
-      <img src={author.imageUrl} className="authorImage" alt="Author"/>
+const Turn = ({author, books, highlight}) => {
+  function highlightToBgColor(highlight) {
+    const mapping = {
+      "none": "",
+      "correct": "green",
+      "wrong": "red"
+    };
+    return mapping[highlight];
+  }
+  return (
+    <div className="row turn" style={{backgroundColor:highlightToBgColor(highlight)}}>
+      <div className="col-4 offset-1">
+        <img src={author.imageUrl} className="authorImage" alt="Author"/>
+      </div>
+      <div className="col-6">
+        {books.map((title) => <Book title={title} key={title}/>)}
+      </div>
     </div>
-    <div className="col-6">
-      {books.map((title) => <Book title={title} key={title}/>)}
-    </div>
-  </div>
-);
+  );
+};
 
 const Continue = () => (
   <div></div>
@@ -41,10 +51,10 @@ const Footer = () => (
   </div>
 );
 
-const AuthorQuiz = ({turnData}) => (
+const AuthorQuiz = ({turnData, highlight}) => (
   <div className="container-fluid">
     <Hero />
-    <Turn {...turnData} />
+    <Turn {...turnData} highlight={highlight} />
     <Continue />
     <Footer />
   </div>
