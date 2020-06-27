@@ -11,14 +11,13 @@ const Hero = () => (
   </div>
 );
 
-const Book = ({title}) => (
-  <div className="answer">
+const Book = ({title, onClick}) => (
+  <div className="answer" onClick={() => {onClick(title);}}>
     <h4>{title}</h4>
   </div>
-
 );
 
-const Turn = ({author, books, highlight}) => {
+const Turn = ({author, books, highlight, onAnswerSelected}) => {
   function highlightToBgColor(highlight) {
     const mapping = {
       "none": "",
@@ -33,7 +32,7 @@ const Turn = ({author, books, highlight}) => {
         <img src={author.imageUrl} className="authorImage" alt="Author"/>
       </div>
       <div className="col-6">
-        {books.map((title) => <Book title={title} key={title}/>)}
+        {books.map((title) => <Book title={title} key={title} onClick={onAnswerSelected}/>)}
       </div>
     </div>
   );
@@ -51,10 +50,10 @@ const Footer = () => (
   </div>
 );
 
-const AuthorQuiz = ({turnData, highlight}) => (
+const AuthorQuiz = ({turnData, highlight, onAnswerSelected}) => (
   <div className="container-fluid">
     <Hero />
-    <Turn {...turnData} highlight={highlight} />
+    <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
     <Continue />
     <Footer />
   </div>
