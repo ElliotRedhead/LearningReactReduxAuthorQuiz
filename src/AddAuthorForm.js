@@ -1,9 +1,15 @@
 import React from "react";
+import "./AddAuthorForm.css";
 
 const AddAuthorForm = ({match}) => (
-  <div>
+  <div className="AddAuthorForm">
     <h1>Add Author</h1>
-    <p>{JSON.stringify(match)}</p>
+    <form>
+      <div className="AddAuthorForm__input">
+        <label htmlFor="name">Name</label>
+        <input type="text" name="name"></input>
+      </div>
+    </form>
   </div>
 );
 
