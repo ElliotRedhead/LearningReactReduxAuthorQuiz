@@ -23,4 +23,13 @@ describe("Author Quiz", () => {
     const div = document.createElement("div");
     ReactDOM.render(<AuthorQuiz {...state} onAnswerSelected={() =>{}}/>, div);
   });
+  describe("When no answer has been selected", ()=> {
+    let wrapper;
+    beforeAll(() => {
+      wrapper = mount(<AuthorQuiz {...state} onAnswerSelected={()=> {}}/>);
+    });
+    it("should have no background colour", () => {
+      expect(wrapper.find("div.row.turn").props().style.backgroundColor).toBe("");
+    });
+  });
 });
