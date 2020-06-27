@@ -32,4 +32,26 @@ describe("Author Quiz", () => {
       expect(wrapper.find("div.row.turn").props().style.backgroundColor).toBe("");
     });
   });
+  describe("When an incorrect answer has been selected", () => {
+    let wrapper;
+    beforeAll(() => {
+      wrapper = mount(
+        <AuthorQuiz {...(Object.assign({}, state, {highlight: "incorrect"}))} onAnswerSelected={()=> {}}/>
+      );
+    });
+    it("should have a red background colour", () => {
+      expect(wrapper.find("div.row.turn").props().style.backgroundColor).toBe("red");
+    });
+  });
+  describe("When a correct answer has been selected", () => {
+    let wrapper;
+    beforeAll(() => {
+      wrapper = mount(
+        <AuthorQuiz {...(Object.assign({}, state, {highlight: "correct"}))} onAnswerSelected={()=> {}}/>
+      );
+    });
+    it("should have a green background colour", () => {
+      expect(wrapper.find("div.row.turn").props().style.backgroundColor).toBe("green");
+    });
+  });
 });
