@@ -68,15 +68,20 @@ const state = {
 
 function onAnswerSelected(answer) {
   const isCorrect = state.turnData.author.books.some((book) => book === answer);
-  state.highlight = isCorrect ? "correct" : "incorrect"; 
+  state.highlight = isCorrect ? "correct" : "incorrect";
+  render();
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function render () {
+  ReactDOM.render(
+    <React.StrictMode>
+      <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+
+render();
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
