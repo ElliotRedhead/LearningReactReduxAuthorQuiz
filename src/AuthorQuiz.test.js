@@ -1,31 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import AuthorQuiz from "./AuthorQuiz";
+import Enzyme, {mount, shallow, render} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+Enzyme.configure({adapter: new Adapter()});
 
-function Hello(props){
-  return <h1>Hello at {props.now}</h1>;
-}
+const state = {
+  turnData: {
+    books: ['The Shining', 'IT', 'David Copperfield', 'A Tale of Two Cities', 'Hamlet', 'Macbeth', 'Romeo and Juliet'],
+    author: {
+      name: 'Charles Dickens',
+      imageUrl: 'images/authors/charlesdickens.jpg',
+      imageSource: 'Wikimedia Commons',
+      books: ['David Copperfield', 'A Tale of Two Cities']
+    },
+  },
+  highlight: 'none'
+};
 
-const moment = new Date(1588946400000);
-
-describe("When testing directly", () => {
-  let result;
-  beforeAll(() => {
-    result = Hello({now: moment.toISOString});
-  });
-  it("returns a value", () => {
-    expect(result).not.toBeNull();
-  });
-  it("is a h1 component", () => {
-    expect(result.type).toBe("h1");
-  });
-  it("has children", () => {
-    expect(result.props.children).toBeTruthy();
-  });
-});
-
-describe("When testing with ReactDOM", () => {
+describe("Author Quiz", () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<Hello now={moment.toISOString()} />, div);
+    ReactDOM.render(<AuthorQuiz {...state} onAnswerSelected={() =>{}}/>, div);
   });
 });
