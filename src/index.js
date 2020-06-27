@@ -78,13 +78,17 @@ const App = () => (
   <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
 );
 
+const AuthorWrapper = () => (
+  <AddAuthorForm onAddAuthor={console.log} />
+);
+
 function render () {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
         <>
           <Route exact path="/" component={App} />
-          <Route path="/add" component={AddAuthorForm} />
+          <Route path="/add" component={AuthorWrapper} />
         </>
       </BrowserRouter>
     </React.StrictMode>,
