@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route } from "react-router-dom";
 import './index.css';
 import AuthorQuiz from './AuthorQuiz';
 import * as serviceWorker from './serviceWorker';
@@ -72,10 +73,16 @@ function onAnswerSelected(answer) {
   render();
 }
 
+const App = () => (
+  <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
+);
+
 function render () {
   ReactDOM.render(
     <React.StrictMode>
-      <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
+      <BrowserRouter>
+        <Route exact path="/" component={App} />
+      </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
   );
