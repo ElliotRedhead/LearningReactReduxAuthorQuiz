@@ -79,7 +79,9 @@ const App = () => (
 );
 
 const AuthorWrapper = () => (
-  <AddAuthorForm onAddAuthor={console.log} />
+  <AddAuthorForm onAddAuthor={(author) => {
+    authors.push(author);
+  }} />
 );
 
 function render () {
