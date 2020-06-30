@@ -78,10 +78,12 @@ const App = () => (
   <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
 );
 
-const AuthorWrapper = () => (
+const AuthorWrapper = withRouter(({history}) => (
   <AddAuthorForm onAddAuthor={(author) => {
     authors.push(author);
+    history.push("/");
   }} />
+)
 );
 
 function render () {
