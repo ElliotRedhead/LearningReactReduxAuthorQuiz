@@ -72,7 +72,18 @@ const resetState = () => (
   }
 );
 
+/**
+ * Creates a new state from the existing state by application of the action.
+ * @param {object} state 
+ * @param {object} action 
+ * @returns {object} state
+ */
+function reducer(state,action) {
+  return state;
+}
+
 let store = Redux.createStore(reducer);
+let state = resetState();
 
 function onAnswerSelected(answer) {
   const isCorrect = state.turnData.author.books.some((book) => book === answer);
@@ -81,12 +92,14 @@ function onAnswerSelected(answer) {
 }
 
 const App = () => (
-  <AuthorQuiz {...state}
-    onAnswerSelected={onAnswerSelected}
-    onContinue={() =>{
-      state = resetState();
-      render();
-    }} />
+  <ReactRedux.Provider store={store}>
+    <AuthorQuiz {...state}
+      onAnswerSelected={onAnswerSelected}
+      onContinue={() =>{
+        state = resetState();
+        render();
+      }} />
+  </ReactRedux.Provider>
 );
 
 const AuthorWrapper = withRouter(({history}) => (
