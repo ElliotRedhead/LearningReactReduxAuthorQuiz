@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, withRouter } from "react-router-dom";
+import * as Redux from "redux";
+import * as ReactRedux from "react-redux";
 import "./index.css";
 import AuthorQuiz from "./AuthorQuiz";
 import AddAuthorForm from "./AddAuthorForm";
@@ -70,7 +72,7 @@ const resetState = () => (
   }
 );
 
-let state = resetState();
+let store = Redux.createStore(reducer);
 
 function onAnswerSelected(answer) {
   const isCorrect = state.turnData.author.books.some((book) => book === answer);
