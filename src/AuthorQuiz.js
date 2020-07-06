@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 import logo from './logo.svg';
 import './App.css';
@@ -71,14 +72,17 @@ const Footer = () => (
   </div>
 );
 
-const AuthorQuiz = ({turnData, highlight, onAnswerSelected, onContinue}) => (
-  <div className="container-fluid">
-    <Hero />
-    <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
-    <Continue show={highlight === "correct"} onContinue={onContinue}/>
-    <p><Link to="/add">Add an author</Link></p>
-    <Footer />
-  </div>
-);
+const AuthorQuiz = connect(mapStateToProps, mapDispatchToProps)(function ({turnData, highlight, onAnswerSelected, onContinue}) {
+  return (
+    <div className="container-fluid">
+      <Hero />
+      <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
+      <Continue show={highlight === "correct"} onContinue={onContinue}/>
+      <p><Link to="/add">Add an author</Link></p>
+      <Footer />
+    </div>
+  );
+});
+
 
 export default AuthorQuiz;
