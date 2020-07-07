@@ -65,31 +65,28 @@ function getTurnData(authors) {
   };
 }
 
-const resetState = () => (
-  {
-    turnData: getTurnData(authors),
-    highlight: ""
-  }
-);
-
 /**
  * Creates a new state from the existing state by application of the action.
- * @param {object} state 
- * @param {object} action 
+ * When the case action is processed, how is the state updated?
+ * Default defines how to handle the action if not specifically stated.
+ * @param {object} state The initial state of the component.
+ * @param {object} action The user event.
  * @returns {object} state
  */
-function reducer(state,action) {
-  return state;
+function reducer(state = { authors, turnData: getTurnData(authors), highlight:""},action) {
+  switch (action.type){
+  case "ANSWER_SELECTED":
+    const isCorrect = state.turnData.author.books.some((book) => book === action.answer);
+    return Object.assign({}, state, {highlight: isCorrect ? "correct" : "incorrect"});
+  case "CONTINUE":
+    return Object.assign({}, state, {
+      highlight: "",
+      turnData: getTurnData(state.authors)});
+  default: return state;
+  }
 }
 
 let store = Redux.createStore(reducer);
-let state = resetState();
-
-function onAnswerSelected(answer) {
-  const isCorrect = state.turnData.author.books.some((book) => book === answer);
-  state.highlight = isCorrect ? "correct" : "incorrect";
-  render();
-}
 
 const App = () => (
   <ReactRedux.Provider store={store}>
@@ -105,21 +102,19 @@ const AuthorWrapper = withRouter(({history}) => (
 )
 );
 
-function render () {
-  ReactDOM.render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <>
-          <Route exact path="/" component={App} />
-          <Route path="/add" component={AuthorWrapper} />
-        </>
-      </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById("root")
-  );
-}
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <>
+        <Route exact path="/" component={App} />
+        <Route path="/add" component={AuthorWrapper} />
+      </>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
 
-render();
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
