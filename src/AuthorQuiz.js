@@ -72,17 +72,51 @@ const Footer = () => (
   </div>
 );
 
-const AuthorQuiz = connect(mapStateToProps, mapDispatchToProps)(function ({turnData, highlight, onAnswerSelected, onContinue}) {
-  return (
-    <div className="container-fluid">
-      <Hero />
-      <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
-      <Continue show={highlight === "correct"} onContinue={onContinue}/>
-      <p><Link to="/add">Add an author</Link></p>
-      <Footer />
-    </div>
-  );
-});
+/**
+ * Defines the data to be passed from the store to the component.
+ * @param {object} state The content of the store.
+ * @returns {object} Parts of the store required for the author quiz component.
+ */
+const mapStateToProps = (state) => (
+  {
+    turnData: state.turnData,
+    highlight: state.highlight
+  }
+);
+
+/**
+ * Map events from author quiz component to actions to be published to Redux store.
+ * @param {object} dispatch The author quiz component events.
+ * @returns {object} Actions.
+ */
+const mapDispatchToProps = (dispatch) => (
+  {
+    onAnswerSelected: (answer) => {
+      dispatch({ type: "ANSWER_SELECTED", answer });
+    },
+    onContinue: () => {
+      dispatch({ type: "CONTINUE" });
+    }
+
+  }
+);
+
+/**
+ * turnData & highlight props are now provided by mapStateToProps.
+ * onAnswerSelected & onContinue are now provided by mapDispatchToProps.
+ */
+const AuthorQuiz = connect(mapStateToProps, mapDispatchToProps)(
+  function ({turnData, highlight, onAnswerSelected, onContinue}) {
+    return (
+      <div className="container-fluid">
+        <Hero />
+        <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
+        <Continue show={highlight === "correct"} onContinue={onContinue}/>
+        <p><Link to="/add">Add an author</Link></p>
+        <Footer />
+      </div>
+    );
+  });
 
 
 export default AuthorQuiz;
