@@ -90,7 +90,7 @@ function reducer(state = { authors, turnData: getTurnData(authors), highlight:""
   }
 }
 
-let store = Redux.createStore(reducer);
+let store = Redux.createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   <React.StrictMode>
