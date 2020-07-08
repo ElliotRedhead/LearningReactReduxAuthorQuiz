@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import "./AddAuthorForm.css";
 
 class AuthorForm extends React.Component {
@@ -61,12 +62,14 @@ function AddAuthorForm({match, onAddAuthor}) {
 /**
  * When user submits add author form, ADD_AUTHOR action is specified to dispatch to reducer.
  * @param {function} dispatch Dispatch method.
+ * @param {object} props The user history properties.
  * @returns {object} The action type.
  */
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = (dispatch, props) => (
   {
     onAddAuthor: (author) => {
       dispatch({ type: "ADD_AUTHOR", author });
+      props.history.push("/");
     }
   }
 );
@@ -74,4 +77,4 @@ const mapDispatchToProps = (dispatch) => (
 /**
  * The add author form doesn't need to read from Redux store, hence blank mapStateToProps.
  */
-export default connect(() => {}, mapDispatchToProps)(AddAuthorForm);
+export default withRouter(connect(() => {}, mapDispatchToProps)(AddAuthorForm));
