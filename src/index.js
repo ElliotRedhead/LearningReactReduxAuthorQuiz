@@ -67,7 +67,7 @@ function getTurnData(authors) {
 
 /**
  * Creates a new state from the existing state by application of the action.
- * When the case action is processed, how is the state updated?
+ * When the case action is dispatched, how is the state updated?
  * Default defines how to handle the action if not specifically stated.
  * @param {object} state The initial state of the component.
  * @param {object} action The user event.
@@ -82,6 +82,10 @@ function reducer(state = { authors, turnData: getTurnData(authors), highlight:""
     return Object.assign({}, state, {
       highlight: "",
       turnData: getTurnData(state.authors)});
+  case "ADD_AUTHOR":
+    return Object.assign({}, state, {
+      authors: state.authors.concat([action.author])
+    });
   default: return state;
   }
 }
