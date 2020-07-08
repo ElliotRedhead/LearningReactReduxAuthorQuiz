@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {connect} from "react-redux";
 import "./AddAuthorForm.css";
 
 class AuthorForm extends React.Component {
@@ -57,4 +58,20 @@ function AddAuthorForm({match, onAddAuthor}) {
   </div>;
 }
 
-export default AddAuthorForm;
+/**
+ * When user submits add author form, ADD_AUTHOR action is specified to dispatch to reducer.
+ * @param {function} dispatch Dispatch method.
+ * @returns {object} The action type.
+ */
+const mapDispatchToProps = (dispatch) => (
+  {
+    onAddAuthor: (author) => {
+      dispatch({ type: "ADD_AUTHOR", author });
+    }
+  }
+);
+
+/**
+ * The add author form doesn't need to read from Redux store, hence blank mapStateToProps.
+ */
+export default connect(() => {}, mapDispatchToProps)(AddAuthorForm);
