@@ -92,27 +92,15 @@ function reducer(state = { authors, turnData: getTurnData(authors), highlight:""
 
 let store = Redux.createStore(reducer);
 
-const App = () => (
-  <ReactRedux.Provider store={store}>
-    <AuthorQuiz />
-  </ReactRedux.Provider>
-);
-
-const AuthorWrapper = withRouter(({history}) => (
-  <AddAuthorForm onAddAuthor={(author) => {
-    authors.push(author);
-    history.push("/");
-  }} />
-)
-);
-
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <>
-        <Route exact path="/" component={App} />
-        <Route path="/add" component={AuthorWrapper} />
-      </>
+      <ReactRedux.Provider store={store}>
+        <>
+          <Route exact path="/" component={AuthorQuiz} />
+          <Route path="/add" component={AddAuthorForm} />
+        </>
+      </ReactRedux.Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
